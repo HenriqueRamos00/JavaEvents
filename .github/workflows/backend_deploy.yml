@@ -51,6 +51,7 @@ jobs:
           spring.datasource.url=${{ secrets.DB_URL }}
           springdoc.swagger-ui.path=/swagger-ui.html
           server.forward-headers-strategy=framework
+          spring.jpa.hibernate.ddl-auto=create
           EOF
 
       - name: Deploy and Run Application
