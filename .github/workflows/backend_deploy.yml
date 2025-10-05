@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -65,12 +66,12 @@ jobs:
 
           # Copy JAR file and properties
           echo "--- Copying JAR file and configuration ---"
-          scp $JAR_FILE root@java-web2:/opt/apps/app.jar
-          scp application-prod.properties root@java-web2:/opt/apps/application-prod.properties
+          scp $JAR_FILE appdeploy@java-web2:/opt/apps/app.jar
+          scp application-prod.properties appdeploy@java-web2:/opt/apps/application-prod.properties
 
           # Stop and start with external config
           echo "--- Deploying application ---"
-          ssh root@java-web2 'bash -s' << 'EOF'
+          ssh appdeploy@java-web2 'bash -s' << 'EOF'
             set -e
             echo "Stopping old process..."
             pkill -f "java -jar /opt/apps/app.jar" || echo "No existing process found"
