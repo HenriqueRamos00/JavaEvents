@@ -70,24 +70,10 @@ jobs:
           scp $JAR_FILE appdeploy@java-web2:/opt/apps/app.jar
           scp application-prod.properties appdeploy@java-web2:/opt/apps/application-prod.properties
 
-          # Stop and start with external config
-          echo "--- Deploying application ---"
-          ssh appdeploy@java-web2 'bash -s' << 'EOF'
-            set -e
-            echo "Stopping old process..."
-            pkill -f "java -jar /opt/apps/app.jar" || echo "No existing process found"
-            
-            echo "Waiting for process to stop..."
-            sleep 2
-            
-            echo "Starting new process with external configuration..."
-            setsid java -jar /opt/apps/app.jar \
-              --spring.config.location=file:/opt/apps/application-prod.properties \
-              > /tmp/app.log 2>&1 &
-            echo "Started with PID: $!"
-            
-            echo "Deployment complete!"
-          EOF
+          echo "--- Restarting application service ---"
+          ssh appdeploy@java-web2 "sudo systemctl restart app.service"
+
+          echo "Deployment complete!"
           
       - name: Disconnect from Tailscale
         if: always()
