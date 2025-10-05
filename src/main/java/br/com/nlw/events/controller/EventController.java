@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@CrossOrigin(origins = "https://java-web2.tail041186.ts.net")
+@CrossOrigin(origins = "*")
 public class EventController {
 
     @Autowired
