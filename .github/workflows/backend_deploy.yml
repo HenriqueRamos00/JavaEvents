@@ -81,7 +81,7 @@ jobs:
             sleep 2
             
             echo "Starting new process with external configuration..."
-            nohup java -jar /opt/apps/app.jar \
+            setsid java -jar /opt/apps/app.jar \
               --spring.config.location=file:/opt/apps/application-prod.properties \
               > /tmp/app.log 2>&1 &
             echo "Started with PID: $!"
