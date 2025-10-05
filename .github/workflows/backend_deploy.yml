@@ -52,9 +52,9 @@ jobs:
 
       - name: Deploy and Run Application
         run: |
-          JAR_FILE=$(find demo/target -name "*.jar" | head -n 1)
+          JAR_FILE=$(find target -name "*.jar" | head -n 1)
           if [ -z "$JAR_FILE" ]; then
-            echo "Error: JAR file not found in demo/target."
+            echo "Error: JAR file not found in target."
             exit 1
           fi
 
